@@ -1,8 +1,5 @@
-## 🚀 Quick Start
- 
-### Docker Compose (Recommended)
 ```bash
-# Clone and start all services
+# Quickstart: Clone and start all services
 git clone git@github.com:vantien-nguyen/ping-pong.git
 cd ping-pong
 docker-compose up

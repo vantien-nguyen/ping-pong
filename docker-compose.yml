@@ -1,0 +1,60 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: ./ping-pong-backend
+      dockerfile: Dockerfile
+    container_name: backend
+    volumes:
+      - ./ping-pong-backend:/app
+    command: python ping-pong/manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=configs.settings
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+
+  ping:
+    build:
+      context: ./ping-pong-backend
+      dockerfile: Dockerfile
+    container_name: ping
+    volumes:
+      - ./ping-pong-backend:/app
+    command: python ping-pong/manage.py runserver 0.0.0.0:8000
+    environment:
+      - MAIN_URL=http://localhost:8000/api
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - backend
+    ports:
+      - "8001:8000"
+
+  pong:
+    build:
+      context: ./ping-pong-backend
+      dockerfile: Dockerfile
+    container_name: pong
+    volumes:
+      - ./ping-pong-backend:/app
+    command: python ping-pong/manage.py runserver 0.0.0.0:8000
+    environment:
+      - MAIN_URL=http://localhost:8000/api
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - backend
+    ports:
+      - "8002:8000"
+
+  frontend:
+    build:
+      context: ./ping-pong-frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./ping-pong-frontend/src:/app/src
+      - ./ping-pong-frontend/public:/app/public

@@ -1,3 +1,17 @@
+## 🚀 Quick Start
+ 
+### Docker Compose (Recommended)
+```bash
+# Clone and start all services
+git clone git@github.com:vantien-nguyen/ping-pong.git
+cd ping-pong
+docker-compose up
+ 
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+
+
 🚀 Ping-Pong Performance Test Report
 Generated: 2026-01-30
 
